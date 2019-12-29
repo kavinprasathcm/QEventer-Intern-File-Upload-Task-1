@@ -10,40 +10,43 @@
 
 <body>
     <input type="file" id="ip-file" />
-</body>
-
-<script>
-
-    let fileInput = document.getElementById('ip-file');
-
-    fileInput.addEventListener('change', inputListener);
-
-    function inputListener(e) {
-        e.preventDefault();
-
-        let file = fileInput.files[0];
-
-        let reader = new FileReader();
-        reader.readAsText(file);
-
-        reader.addEventListener('load', (event) => {
-
-            let blob = event.target.result;
-
-            // Write your code here
-            ref.put(blob).then((snapshot) => {
-               
-                console.log("Uploaded the blob or file!");
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase.js"></script>
+    <script>
+        
+        var firebaseConfig = {
+            apiKey: "AIzaSyBE01_LXO97eOXRcmgUE7UgRF8ReuxWmR8",
+            authDomain: "first-bdb98.firebaseapp.com",
+            databaseURL: "https://first-bdb98.firebaseio.com",
+            projectId: "first-bdb98",
+            storageBucket: "first-bdb98.appspot.com",
+            messagingSenderId: "995343662801",
+            appId: "1:995343662801:web:0e8d3e706453f087d28ff0",
+            measurementId: "G-TQTD887V73"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        
+        let fileInput = document.getElementById('ip-file');
+    
+        fileInput.addEventListener('change', inputListener);
+    
+        function inputListener(e) {
+            e.preventDefault();
                 
-            });
+            var fileButton = document.getElementById('fileButton');
+            //Get file
+            var file = e.target.files[0];
 
-        });
+            //Create a Storage ref
+            var storageRef = firebase.storage().ref('folder_name/'+file.name);
 
-        reader.addEventListener('error', (event) => {
-            alert('Unable to read file');
-        })
-    }
-
-</script>
-
+        //Upload file
+        var task = storageRef.put(file);
+    
+        }
+    
+    </script>
+    
+    
+    </body>
 </html>
