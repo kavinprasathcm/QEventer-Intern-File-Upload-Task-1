@@ -42,6 +42,11 @@
 
         //Upload file
         var task = storageRef.put(file);
+         task.on('state_changed', function(e){
+          alert('File uploade Successfully')
+        },function(error){
+          alert('Sorry File cannot be uploaded')
+        });
     
         }
     
